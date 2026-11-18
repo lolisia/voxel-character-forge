@@ -133,6 +133,8 @@ index = 1 + role * 4 + shade        // role 0..62, shade 0..3  → index 1..252
 - 얼굴은 `decal` 피스 하나와 표정 프레임 여러 개다. 쿼드 위치는 머리 파츠가 정한 `faceRect` 를 따른다.
 - 원본은 8비트 인덱스 PNG 아틀라스이며, 같은 팔레트 규칙(5절)으로 칠한다. 그래서 눈동자 색(`eye` 역할)을 바꿀 수 있다.
 - 해상도: 얼굴 1복셀당 4픽셀. 기본 `faceRect` 20×12복셀 → 프레임 80×48 픽셀.
+- 쿼드는 `faceRect.z` 평면에서 +Z로 **0.05복셀** 떨어뜨려 놓는다(z-fighting 방지, Godot·Unity에서 검증).
+- 베이크 GLB에서 얼굴 재질은 `alphaMode: MASK`, `alphaCutoff: 0.5` 다.
 - 필수 표정: `neutral`, `blink`. 권장: `smile`, `angry`, `sad`, `surprised`, `hurt`.
 
 ### 6.4 메시 베이크 규칙
@@ -180,7 +182,9 @@ parts/<slot>/<name>/part.glb             # 베이크 메시 (필수)
 previews/<name>.png                      # 썸네일 128×128 (선택)
 ```
 
-- `part.glb` 에는 피스마다 노드 하나가 있다. 노드 이름 = 피스 ID, 노드 `extras` = `{ "bone": "...", "piece": "...", "slot": "..." }`.
+- `part.glb` 에는 피스마다 노드 하나가 있다. **노드 이름 = 피스 이름**(`part.json` 의 `pieces[].name`).
+- 피스 → 뼈 매핑의 기준은 `part.json` 의 `pieces[].bone` 이다. SDK는 이것을 써야 한다(MUST).
+- 노드 `extras` = `{ "bone": "...", "piece": "...", "slot": "..." }` 는 참고용으로 쓴다(SHOULD). Unity glTFast는 `extras` 를 버리므로, SDK가 `extras` 에 의존하면 안 된다(MUST NOT).
 - decal 피스의 텍스처는 인덱스 값을 R 채널에 담은 PNG(`R = index`, `A = 0` 이면 투명)로 GLB에 넣는다.
 - 원본(`.vox`)이 있는 팩만 웹 툴에서 편집할 수 있다. 런타임 배포용 팩은 원본을 빼도 된다(`manifest.editable: false`).
 
@@ -228,7 +232,17 @@ previews/<id>.png           # 선택: 캐릭터 썸네일
 
 SHOULD: 피스 병합(드로우콜 축소), 보조 뼈 스프링 물리.
 
-## 13. 열린 질문 (v0.2 이전에 결정)
+## 13. 엔진별 참고 (glTF 왕복 검증 결과)
+
+근거: `documents/spikes/gltf-roundtrip.md` (Godot 4.7.2, Unity 6000.6.8f1 + glTFast 6.21.0).
+
+- **좌표:** Godot은 glTF 축을 그대로 쓴다. glTFast는 X를 반전해 Unity 왼손 좌표계로 바꾸며, 캐릭터는 +Z를 보고 왼쪽 손은 −X에 온다(캐릭터 기준 좌우는 유지). SDK는 축을 직접 바꾸지 않는다.
+- **휴머노이드:** Godot `SkeletonProfileHumanoid` 필수 뼈가 전부 같은 이름으로 존재한다. Unity는 `HumanBodyBones` 이름 그대로 `AvatarBuilder.BuildHumanAvatar` 로 유효한 Humanoid Avatar가 만들어진다.
+- **Unity 클립:** glTFast는 기본으로 Legacy 클립을 만든다. Humanoid 리타깃이 필요하면 importer의 Animation Method를 Mecanim으로, 런타임에서는 `ImportSettings.AnimationMethod` 를 지정한다.
+- **Unity 에디터 도구:** 에디터에서 런타임 API(`GltfImport`)를 쓸 때는 `UninterruptedDeferAgent` 를 넘긴다(기본 agent는 플레이 모드 전용).
+- **Unity 색 공간:** SDK는 Linear 색 공간과 sRGB 팔레트 텍스처를 전제로 한다.
+
+## 14. 열린 질문 (v0.2 이전에 결정)
 
 - 파츠 메시 LOD를 둘지 (복셀 해상도 절반 베이크).
 - 아웃라인을 메시(뒤집힌 셸)로 구울지, 셰이더로 할지.
