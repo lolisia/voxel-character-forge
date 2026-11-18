@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/lolisia/voxel-character-forge/spec/schemas/part.schema.json",
+  "title": "VCF part metadata (parts/<slot>/<name>/part.json)",
+  "type": "object",
+  "required": ["format", "schemaVersion", "id", "slot", "pieces"],
+  "additionalProperties": false,
+  "properties": {
+    "format": { "const": "vcf.part" },
+    "schemaVersion": { "$ref": "character.schema.json#/$defs/semver" },
+    "id": { "$ref": "character.schema.json#/$defs/partId" },
+    "slot": { "$ref": "character.schema.json#/$defs/slotName" },
+    "displayName": { "type": "string", "maxLength": 128 },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_]*$" },
+      "uniqueItems": true
+    },
+    "pieces": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/piece" } },
+    "hidesBodyPieces": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+      "uniqueItems": true
+    },
+    "hidesSlots": { "type": "array", "items": { "$ref": "character.schema.json#/$defs/slotName" }, "uniqueItems": true },
+    "occupies": { "type": "array", "items": { "$ref": "character.schema.json#/$defs/slotName" }, "uniqueItems": true },
+    "fixedColors": {
+      "type": "object",
+      "description": "fixed role number (32-62, as string) -> base color",
+      "propertyNames": { "pattern": "^(3[2-9]|[45][0-9]|6[0-2])$" },
+      "additionalProperties": { "$ref": "character.schema.json#/$defs/color" }
+    },
+    "shadeOverrides": {
+      "type": "object",
+      "description": "palette index (1-255, as string) -> explicit color",
+      "propertyNames": { "pattern": "^([1-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$" },
+      "additionalProperties": { "$ref": "character.schema.json#/$defs/color" }
+    },
+    "faceRect": {
+      "description": "head parts only: face decal quad in model-space voxels (x/y range on the plane z)",
+      "type": "object",
+      "required": ["min", "max", "z"],
+      "additionalProperties": false,
+      "properties": {
+        "min": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2 },
+        "max": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2 },
+        "z": { "type": "number" }
+      }
+    },
+    "frames": {
+      "description": "face parts only: expression name -> atlas cell [col, row]",
+      "type": "object",
+      "required": ["neutral", "blink"],
+      "propertyNames": { "pattern": "^[a-z][a-z0-9_]*$" },
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "integer", "minimum": 0 },
+        "minItems": 2,
+        "maxItems": 2
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "generator": { "enum": ["manual", "llm_dsl", "image_to_3d", "imported"] },
+        "prompt": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    }
+  },
+  "allOf": [
+    { "if": { "properties": { "slot": { "const": "face" } } }, "then": { "required": ["frames"] } }
+  ],
+  "$defs": {
+    "piece": {
+      "type": "object",
+      "required": ["name", "kind", "bone"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$", "maxLength": 64 },
+        "kind": { "enum": ["voxel", "decal"] },
+        "bone": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_]*$" },
+        "file": {
+          "type": "string",
+          "description": "source file relative to the part folder (.vox or index .png); omitted in runtime-only packs"
+        },
+        "origin": {
+          "type": "array",
+          "items": { "type": "integer" },
+          "minItems": 3,
+          "maxItems": 3,
+          "description": "voxel pieces: model-space voxel position of the .vox grid origin"
+        },
+        "mirrorOf": { "type": "string", "description": "derived right-side piece: name of the left piece it mirrors" }
+      },
+      "allOf": [
+        { "if": { "properties": { "kind": { "const": "voxel" } } }, "then": { "required": ["origin"] } }
+      ]
+    }
+  }
+}

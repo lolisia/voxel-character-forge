@@ -1,0 +1,35 @@
+{
+  "format": "vcf.palette-roles",
+  "schemaVersion": "0.1.0",
+  "_doc": "index = 1 + role * 4 + shade (shade 0 base, 1 shadow, 2 deep shadow, 3 highlight). Roles 0-31 are recolorable by the character palette; 32-62 are fixed per part (63 is invalid: index would exceed 255) (part.fixedColors).",
+  "shades": [
+    { "shade": 0, "name": "base",       "oklchLightnessDelta": 0.0 },
+    { "shade": 1, "name": "shadow",     "oklchLightnessDelta": -0.10 },
+    { "shade": 2, "name": "deepShadow", "oklchLightnessDelta": -0.20 },
+    { "shade": 3, "name": "highlight",  "oklchLightnessDelta": 0.08 }
+  ],
+  "roles": [
+    { "role": 0,  "name": "skin",      "default": "#F6D7C3" },
+    { "role": 1,  "name": "hair1",     "default": "#F2C27A" },
+    { "role": 2,  "name": "hair2",     "default": "#D9342B" },
+    { "role": 3,  "name": "eye",       "default": "#3A7BD5" },
+    { "role": 4,  "name": "eyeWhite",  "default": "#FFFFFF" },
+    { "role": 5,  "name": "line",      "default": "#2B1D1A" },
+    { "role": 6,  "name": "mouth",     "default": "#C2524F" },
+    { "role": 7,  "name": "cheek",     "default": "#F4A9A0" },
+    { "role": 8,  "name": "cloth1",    "default": "#FFFFFF" },
+    { "role": 9,  "name": "cloth2",    "default": "#C8202B" },
+    { "role": 10, "name": "cloth3",    "default": "#2F3E5C" },
+    { "role": 11, "name": "cloth4",    "default": "#E8C36A" },
+    { "role": 12, "name": "leather",   "default": "#6B4226" },
+    { "role": 13, "name": "metal1",    "default": "#B8BCC4" },
+    { "role": 14, "name": "metal2",    "default": "#D4AF37" },
+    { "role": 15, "name": "fur1",      "default": "#F2C27A" },
+    { "role": 16, "name": "fur2",      "default": "#FFFFFF" },
+    { "role": 17, "name": "accent1",   "default": "#C8202B" },
+    { "role": 18, "name": "accent2",   "default": "#3A7BD5" },
+    { "role": 19, "name": "gem",       "default": "#E04A6A" }
+  ],
+  "reservedRecolorable": [20, 31],
+  "fixedRoles": [32, 62]
+}

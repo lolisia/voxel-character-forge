@@ -1,0 +1,38 @@
+{
+  "format": "vcf.character",
+  "schemaVersion": "0.1.0",
+  "skeleton": "sd_v1",
+  "id": "fox_miko",
+  "name": "Fox Miko",
+  "body": { "height": 1.0, "headScale": 1.05 },
+  "parts": {
+    "body": "core:body_base_01",
+    "head": "core:head_round_01",
+    "face": "core:face_cute_01",
+    "hair_front": "core:hair_bob_bangs_01",
+    "hair_back": "core:hair_bob_twin_01",
+    "ears": "core:ears_fox_01",
+    "headwear": null,
+    "top": "core:miko_top_01",
+    "sleeve": "core:sleeve_wide_01",
+    "bottom": "core:pleat_skirt_01",
+    "legs": "core:tabi_socks_01",
+    "shoes": "core:zori_01",
+    "tail": "core:tail_fox_01",
+    "back": null,
+    "weapon_r": null,
+    "weapon_l": null
+  },
+  "palette": {
+    "skin": "#F6D7C3",
+    "hair1": "#F2C27A",
+    "hair2": "#D9342B",
+    "eye": "#3A7BD5",
+    "cloth1": "#FFFFFF",
+    "cloth2": "#C8202B",
+    "fur1": "#F2C27A",
+    "fur2": "#FFFFFF"
+  },
+  "face": { "default": "neutral" },
+  "requires": [{ "pack": "core", "version": "^0.1.0" }]
+}

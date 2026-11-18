@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/lolisia/voxel-character-forge/spec/schemas/bundle-manifest.schema.json",
+  "title": "VCF export bundle manifest (*.vcbundle -> bundle.json)",
+  "type": "object",
+  "required": ["format", "schemaVersion", "createdBy", "characters", "packs"],
+  "additionalProperties": false,
+  "properties": {
+    "format": { "const": "vcf.bundle" },
+    "schemaVersion": { "$ref": "character.schema.json#/$defs/semver" },
+    "createdBy": { "type": "string", "description": "tool name and version" },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "characters": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "path"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$" },
+          "path": { "type": "string", "pattern": "^characters/.+\\.vchar\\.json$" },
+          "baked": { "type": "string", "pattern": "^baked/.+\\.glb$" },
+          "preview": { "type": "string", "pattern": "^previews/.+\\.png$" }
+        }
+      }
+    },
+    "packs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["pack", "version", "path"],
+        "additionalProperties": false,
+        "properties": {
+          "pack": { "$ref": "character.schema.json#/$defs/name" },
+          "version": { "$ref": "character.schema.json#/$defs/semver" },
+          "path": { "type": "string", "pattern": "^packs/.+\\.vcpack$" },
+          "subset": { "type": "boolean", "description": "true = contains only the parts the bundled characters use" }
+        }
+      }
+    },
+    "animations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "clips"],
+        "additionalProperties": false,
+        "properties": {
+          "path": { "type": "string", "pattern": "^animations/.+\\.glb$" },
+          "clips": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+        }
+      }
+    }
+  }
+}

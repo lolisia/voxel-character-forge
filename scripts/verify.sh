@@ -26,6 +26,9 @@ if bad:
 print("json: ok")
 PYEOF
 
+step "spec: schemas, data consistency, samples"
+"$PY" -I scripts/check_spec.py
+
 # step "tools: test"
 # (cd tools && "$PY" -m pytest -q)
 

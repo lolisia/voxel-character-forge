@@ -1,0 +1,16 @@
+{
+  "format": "vcf.part",
+  "schemaVersion": "0.1.0",
+  "id": "core:sleeve_wide_01",
+  "slot": "sleeve",
+  "displayName": "Wide miko sleeves",
+  "tags": ["shrine"],
+  "pieces": [
+    { "name": "upper_l", "kind": "voxel", "bone": "LeftUpperArm", "file": "upper_l.vox", "origin": [5, 27, 6] },
+    { "name": "lower_l", "kind": "voxel", "bone": "LeftLowerArm", "file": "lower_l.vox", "origin": [10, 25, 7] },
+    { "name": "upper_r", "kind": "voxel", "bone": "RightUpperArm", "mirrorOf": "upper_l", "origin": [-11, 27, 6] },
+    { "name": "lower_r", "kind": "voxel", "bone": "RightLowerArm", "mirrorOf": "lower_l", "origin": [-16, 25, 7] }
+  ],
+  "hidesBodyPieces": ["upperarm_l", "upperarm_r"],
+  "fixedColors": { "32": "#B0202A" }
+}

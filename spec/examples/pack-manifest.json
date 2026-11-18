@@ -1,0 +1,15 @@
+{
+  "format": "vcf.pack",
+  "schemaVersion": "0.1.0",
+  "pack": "core",
+  "version": "0.1.0",
+  "skeleton": "sd_v1",
+  "displayName": "Core parts",
+  "license": "proprietary",
+  "editable": true,
+  "parts": [
+    { "id": "core:hair_bob_bangs_01", "slot": "hair_front", "path": "parts/hair_front/hair_bob_bangs_01/", "preview": "previews/hair_bob_bangs_01.png" },
+    { "id": "core:face_cute_01", "slot": "face", "path": "parts/face/face_cute_01/" },
+    { "id": "core:sleeve_wide_01", "slot": "sleeve", "path": "parts/sleeve/sleeve_wide_01/" }
+  ]
+}

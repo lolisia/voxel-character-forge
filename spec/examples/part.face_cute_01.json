@@ -1,0 +1,19 @@
+{
+  "format": "vcf.part",
+  "schemaVersion": "0.1.0",
+  "id": "core:face_cute_01",
+  "slot": "face",
+  "displayName": "Cute big eyes",
+  "pieces": [
+    { "name": "decal", "kind": "decal", "bone": "Head", "file": "face.png" }
+  ],
+  "frames": {
+    "neutral": [0, 0],
+    "blink": [1, 0],
+    "smile": [2, 0],
+    "angry": [0, 1],
+    "sad": [1, 1],
+    "surprised": [2, 1],
+    "hurt": [3, 1]
+  }
+}

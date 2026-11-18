@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/lolisia/voxel-character-forge/spec/schemas/pack-manifest.schema.json",
+  "title": "VCF part pack manifest (*.vcpack -> manifest.json)",
+  "type": "object",
+  "required": ["format", "schemaVersion", "pack", "version", "skeleton", "parts"],
+  "additionalProperties": false,
+  "properties": {
+    "format": { "const": "vcf.pack" },
+    "schemaVersion": { "$ref": "character.schema.json#/$defs/semver" },
+    "pack": { "$ref": "character.schema.json#/$defs/name" },
+    "version": { "$ref": "character.schema.json#/$defs/semver" },
+    "skeleton": { "const": "sd_v1" },
+    "displayName": { "type": "string", "maxLength": 128 },
+    "license": { "type": "string" },
+    "editable": {
+      "type": "boolean",
+      "default": true,
+      "description": "false = source .vox/.png omitted (runtime-only pack)"
+    },
+    "parts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "slot", "path"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "$ref": "character.schema.json#/$defs/partId" },
+          "slot": { "$ref": "character.schema.json#/$defs/slotName" },
+          "path": { "type": "string", "pattern": "^parts/[a-z_]+/[a-z0-9_]+/$" },
+          "preview": { "type": "string" }
+        }
+      }
+    }
+  }
+}

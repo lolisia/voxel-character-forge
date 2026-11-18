@@ -1,0 +1,12 @@
+{
+  "format": "vcf.part",
+  "schemaVersion": "0.1.0",
+  "id": "core:hair_bob_bangs_01",
+  "slot": "hair_front",
+  "displayName": "Bob with bangs",
+  "tags": ["short", "bangs"],
+  "pieces": [
+    { "name": "main", "kind": "voxel", "bone": "Head", "file": "main.vox", "origin": [-17, 30, 15] }
+  ],
+  "source": { "generator": "llm_dsl", "prompt": "blonde bob with straight bangs and a red streak" }
+}

@@ -1,0 +1,15 @@
+{
+  "format": "vcf.bundle",
+  "schemaVersion": "0.1.0",
+  "createdBy": "voxel-character-forge web 0.1.0",
+  "createdAt": "2026-11-18T12:00:00Z",
+  "characters": [
+    { "id": "fox_miko", "path": "characters/fox_miko.vchar.json", "baked": "baked/fox_miko.glb", "preview": "previews/fox_miko.png" }
+  ],
+  "packs": [
+    { "pack": "core", "version": "0.1.0", "path": "packs/core.vcpack", "subset": true }
+  ],
+  "animations": [
+    { "path": "animations/basic.glb", "clips": ["idle", "walk", "run"] }
+  ]
+}

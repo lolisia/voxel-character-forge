@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/lolisia/voxel-character-forge/spec/schemas/character.schema.json",
+  "title": "VCF character definition (*.vchar.json)",
+  "type": "object",
+  "required": ["format", "schemaVersion", "skeleton", "parts"],
+  "additionalProperties": false,
+  "properties": {
+    "format": { "const": "vcf.character" },
+    "schemaVersion": { "$ref": "#/$defs/semver" },
+    "skeleton": { "const": "sd_v1" },
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$", "maxLength": 64 },
+    "name": { "type": "string", "maxLength": 128 },
+    "body": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "height": { "type": "number", "minimum": 0.85, "maximum": 1.15, "default": 1.0 },
+        "headScale": { "type": "number", "minimum": 0.85, "maximum": 1.2, "default": 1.0 }
+      }
+    },
+    "parts": {
+      "type": "object",
+      "required": ["body", "head"],
+      "propertyNames": { "$ref": "#/$defs/slotName" },
+      "additionalProperties": { "anyOf": [{ "$ref": "#/$defs/partId" }, { "type": "null" }] },
+      "properties": {
+        "body": { "$ref": "#/$defs/partId" },
+        "head": { "$ref": "#/$defs/partId" }
+      }
+    },
+    "palette": {
+      "type": "object",
+      "propertyNames": { "pattern": "^[a-z][A-Za-z0-9]*$" },
+      "additionalProperties": { "$ref": "#/$defs/color" }
+    },
+    "face": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "default": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$", "default": "neutral" }
+      }
+    },
+    "requires": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["pack", "version"],
+        "additionalProperties": false,
+        "properties": {
+          "pack": { "$ref": "#/$defs/name" },
+          "version": { "type": "string", "minLength": 1, "description": "semver range, e.g. ^0.1.0" }
+        }
+      }
+    },
+    "extensions": { "type": "object", "description": "game-specific data; readers must preserve unknown keys" }
+  },
+  "$defs": {
+    "semver": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+(-[0-9A-Za-z.-]+)?$" },
+    "name": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_]*$", "maxLength": 64 },
+    "partId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_]*:[a-z0-9][a-z0-9_]*$", "maxLength": 129 },
+    "color": { "type": "string", "pattern": "^#[0-9A-Fa-f]{6}$" },
+    "slotName": {
+      "enum": ["body", "head", "face", "hair_back", "hair_front", "ears", "headwear", "top", "sleeve", "bottom", "legs", "shoes", "tail", "back", "weapon_r", "weapon_l"]
+    }
+  }
+}
