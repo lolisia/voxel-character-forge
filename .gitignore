@@ -70,3 +70,14 @@ unity/[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # ---- Local pipeline artifacts ----
 .artifact/
+
+# ---- dev-pipeline: local-only files (never committed) ----
+.claude/
+.codex/
+.opencode/
+opencode.json
+opencode.jsonc
+.worktrees/
+.pipeline/
+AGENTS.md
+CLAUDE.md
