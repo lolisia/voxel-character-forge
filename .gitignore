@@ -81,3 +81,19 @@ opencode.jsonc
 .pipeline/
 AGENTS.md
 CLAUDE.md
+
+# ---- Node (packages/, apps/) ----
+node_modules/
+dist/
+coverage/
+.vite/
+*.tsbuildinfo
+npm-debug.log*
+
+# ---- Godot SDK (sdk/godot/) ----
+sdk/godot/.godot/
+
+# ---- Unity SDK logic tests (sdk/unity/Tests~/) ----
+sdk/unity/Tests~/**/bin/
+sdk/unity/Tests~/**/obj/
+sdk/unity/Tests~/**/TestResults/
