@@ -1,0 +1,72 @@
+# ---- OS / Editor ----
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+
+# ---- Secrets ----
+.env
+.env.*
+!.env.example
+
+# ---- Python (tools/) ----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+
+# ---- Generation outputs (scratch) ----
+tools/out/
+tools/cache/
+**/comfyui_output/
+
+# ---- Unity (unity/) ----
+unity/[Ll]ibrary/
+unity/[Tt]emp/
+unity/[Oo]bj/
+unity/[Bb]uild/
+unity/[Bb]uilds/
+unity/[Ll]ogs/
+unity/[Uu]ser[Ss]ettings/
+unity/[Mm]emoryCaptures/
+unity/[Rr]ecordings/
+unity/Assets/AssetStoreTools*
+unity/Assets/Plugins/Editor/JetBrains*
+unity/.vs/
+unity/.gradle/
+unity/ExportedObj/
+unity/.consulo/
+unity/*.csproj
+unity/*.unityproj
+unity/*.sln
+unity/*.suo
+unity/*.tmp
+unity/*.user
+unity/*.userprefs
+unity/*.pidb
+unity/*.booproj
+unity/*.svd
+unity/*.pdb
+unity/*.mdb
+unity/*.opendb
+unity/*.VC.db
+unity/*.pidb.meta
+unity/*.pdb.meta
+unity/*.mdb.meta
+unity/sysinfo.txt
+unity/*.apk
+unity/*.aab
+unity/*.unitypackage
+unity/crashlytics-build.properties
+unity/[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# ---- Local pipeline artifacts ----
+.artifact/
